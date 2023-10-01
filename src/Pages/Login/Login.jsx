@@ -1,17 +1,30 @@
 import { Link } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
 import toast from 'react-hot-toast';
+import { useContext } from 'react';
+import { AuthContext } from '../../Components/AuthProvider/AuthProvider';
+
 
 const Login = () => {
+    let { login } = useContext(AuthContext)
 
-    let handleLogin=()=>{
+    let handleLogin = (e) => {
+        e.preventDefault();
         let email = e.target.email.value;
         let password = e.target.password.value;
         if (password.length < 6) {
             toast.error("Password should have more than 6 Characters");
             return;
         }
-
+        login(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
 
     }
     return (
