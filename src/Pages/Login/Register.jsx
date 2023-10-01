@@ -1,7 +1,33 @@
 import { Link } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
+import { useContext } from 'react';
+import { AuthContext } from '../../Components/AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Register = () => {
+    let { register } = useContext(AuthContext);
+
+    let handleRegister = (e) => {
+        e.preventDefault();
+        let fullName = e.target.fullName.value;
+        let email = e.target.email.value;
+        let image = e.target.imgURL.value;
+        let password = e.target.password.value;
+        if (password.length < 6) {
+            toast.error("Password should have more than 6 Characters");
+            return;
+        }
+
+        register(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+
+    }
     return (
         <>
             <div className="hero min-h-screen bg-base-200">
@@ -10,7 +36,7 @@ const Register = () => {
                         <h1 className="text-5xl font-bold">Register now!</h1>
                         <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                     </div>
-                    <form>
+                    <form onSubmit={handleRegister}>
                         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                             <div className="card-body">
                                 <div className="form-control">

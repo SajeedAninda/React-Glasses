@@ -16,6 +16,12 @@ const AuthProvider = ({ children }) => {
     let register=(email,password)=>{
         return createUserWithEmailAndPassword(auth, email, password);
     }
+    
+
+
+
+
+
 
     let authentication = {
         googleLogin,
