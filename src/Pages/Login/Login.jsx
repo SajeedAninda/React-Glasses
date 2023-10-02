@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
 import toast from 'react-hot-toast';
 import { useContext } from 'react';
@@ -7,6 +7,7 @@ import { AuthContext } from '../../Components/AuthProvider/AuthProvider';
 
 const Login = () => {
     let { login } = useContext(AuthContext)
+    let navigate = useNavigate();
 
     let handleLogin = (e) => {
         e.preventDefault();
@@ -19,7 +20,7 @@ const Login = () => {
         login(email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
+                navigate('/');
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -48,7 +49,7 @@ const Login = () => {
                                     <label className="label">
                                         <span className="label-text">Password</span>
                                     </label>
-                                    <input type="text" name='password' placeholder="password" className="input input-bordered" />
+                                    <input type="password" name='password' placeholder="password" className="input input-bordered" />
                                     <label className="label">
                                         <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                     </label>

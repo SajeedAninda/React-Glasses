@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
 import { useContext } from 'react';
 import { AuthContext } from '../../Components/AuthProvider/AuthProvider';
@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 
 const Register = () => {
     let { register } = useContext(AuthContext);
+    let navigate = useNavigate();
 
     let handleRegister = (e) => {
         e.preventDefault();
@@ -21,7 +22,7 @@ const Register = () => {
         register(email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
+                navigate('/');
             })
             .catch((error) => {
                 console.log(error.message);

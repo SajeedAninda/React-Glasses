@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        path: '',
+        path: '/',
         element: <Home />,
         loader: async () => (fetch(url))
       },
